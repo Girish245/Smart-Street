@@ -1,16 +1,49 @@
  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container">
+      
+      <!--Django message frame work to display messaged on some action using function-->
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %} {% if message.tags == 'error' %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% else %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endif %} {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+    <!--Django message framework ends-->
+
       <div class="header-container d-flex align-items-center justify-content-between">
         <div class="logo">
-          <h1 class="text-light"><a href="index.html"><span>S-Street</span></a></h1>
+          <h1 class="text-light"><a href="{% url 'index' %}"><span>S-Street</span></a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">About</a></li>
             <li><a class="nav-link scrollto" href="#services">Services</a></li>
             <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
@@ -32,9 +65,14 @@
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li>
-            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-            <li><a class="getstarted scrollto" href="#about">Login</a></li>
-            <li><a class="getstarted scrollto" href="#about">Register</a></li>
+            
+            {% if request.user.is_authenticated %}
+            <li><a class="nav-link scrollto" href="#">{{request.user.full_name}}</a></li>
+            <li><a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a class="getstarted scrollto" href="{% url 'login' %}">Login</a></li>
+            <li><a class="getstarted scrollto" href="{% url 'user-register' %}">Register</a></li>
+            {% endif %}
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
