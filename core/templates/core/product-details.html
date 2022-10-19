@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Product Details</h2>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Portfolio Details Section ======= -->
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+
+
+      <div class="row gy-4">
+
+        <div class="col-lg-8">
+          <div class="portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+
+              <div class="swiper-slide" style="width: 30rem">
+                <img src="{{product.product_image.url}}" alt="" class='img-thumbnail'>
+              </div>
+            
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-4">
+          
+          <div class="portfolio-info">
+            <h3>Product information</h3>
+            <ul>
+              <li><strong>Name</strong>: {{product.product_name}}</li>
+              <li><strong>Category</strong>: {{product.category.category_name}}</li>
+              <li><strong>Price</strong>: ₹{{product.product_price}}</li>
+              <li><strong>Product Available</strong>: {{product.available_product_count}}</li>
+
+        
+            </ul>
+          </div>
+
+          <div class="portfolio-description">
+            <h2>More Details</h2>
+            <p>
+              {{product.description|linebreaks}}
+            </p>
+          </div>
+          {% if product.available_product_count <= 0 %}
+          <button class="btn btn-warning disabled">Out Of Stock</button>
+
+          {% else %}
+          <button type="submit" class="btn btn-success">Add to Cart</b>
+
+          {% endif %}
+ 
+        </div>
+      
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Details Section -->
+
+
+
+{% endblock %}

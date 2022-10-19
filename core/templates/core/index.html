@@ -12,7 +12,7 @@
     >
       <h1>Shop with Smart Street</h1>
       <h2>If you do build a great experience, customers tell each other about that. Word of mouth is very powerful.</h2>
-      <a href="#" class="btn-get-started scrollto">Start Shopping</a>
+      <a href="{% url 'store' %}" class="btn-get-started scrollto">Start Shopping</a>
     </div>
   </section>
   <!-- End Hero -->
@@ -66,47 +66,36 @@
         </div>
       </div>
     </section>
-    <!-- End Counts Section -->
-
-    <!-- <h3>Category List</h3>
-
-    {% for category in categories %}
-
-    <ul>
-      <li>{{category.category_name}}</li>
-    </ul>
-
-    {% endfor %} -->
-
-
+    
     <section class="p-5">
       <div class="container-fluid">
         <div class="row text-center">
 
-          
+          {% for product in products %}
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3 d-flex align-items-stretch"
           >
-          <a href="#" class="link-dark">
+          <a href="{% url 'product-details' product.id %}" class="link-dark">
             <div class="card" style="width: 18rem">
               
               <img
                 class="card-img-top"
-                src="#"
+                src="{{product.product_image.url}}"
                 alt="Card image cap"
               />
               <div class="card-body">
-                <h5 class="card-title">Name</h5>
-                <p class="card-text">Description</p>
-                <p class="card-text">Category: </p>
-                <p class="card-text">Price: ₹100</p>
-                <a href="#" class="btn btn-primary">View more</a>
+                <h5 class="card-title">{{product.product_name}}</h5>
+                <p class="card-text">{{product.description|slice:"70"}}..</p>
+                <p class="card-text">Category: {{product.category.category_name}}</p>
+                <p class="card-text">Price: ₹{{product.product_price}}</p>
+                <a href="{% url 'product-details' product.id %}" class="btn btn-primary">View more</a>
               </div>
            
             </div>
           </a>
           </div>
-  
+          
+          {% endfor %}
 
         </div>
       </div>

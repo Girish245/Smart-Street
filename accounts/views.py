@@ -1,4 +1,3 @@
-from cmath import log
 from django.shortcuts import render, redirect
 from .models import Account
 from django.contrib.auth import authenticate, login, logout
