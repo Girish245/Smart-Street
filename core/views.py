@@ -13,7 +13,7 @@ def store(request, category_slug=None):
     products = None
 
     if category_slug != None:
-        categories = get_object_or_404(Category, category_slug=category_slug) # the first category_slug is from the urls.py and the second is from the category model
+        categories = get_object_or_404(Category, category_slug=category_slug) # the first category_slug is from the model and the second is from the urls.py
         products = Product.objects.filter(category=categories)
     else:
         products = Product.objects.all()
@@ -29,7 +29,7 @@ def searchProduct(request):
         if query:
             products = Product.objects.filter(Q(product_name__icontains=query)|Q(description__icontains=query)|Q(category__category_name__icontains=query))
         else:
-            products = Product.objects.none()
+            products = Product.objects.all() #or products = Product.objects.none()
         
     context = {'products': products}
 

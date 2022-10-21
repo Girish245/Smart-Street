@@ -64,7 +64,7 @@
                 {% endfor %}
               </ul>
             </li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="{% url 'cart' %}">Cart</a></li>
             {% if request.user.is_authenticated %}
             <li><a class="nav-link scrollto" href="#">{{request.user.full_name}}</a></li>
             <li><a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a></li>

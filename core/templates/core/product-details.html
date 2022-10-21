@@ -58,7 +58,7 @@
           <button class="btn btn-warning disabled">Out Of Stock</button>
 
           {% else %}
-          <button type="submit" class="btn btn-success">Add to Cart</b>
+          <a href="{% url 'add-to-cart' product.id %}" class="btn btn-success">Add to Cart</a>
 
           {% endif %}
  
