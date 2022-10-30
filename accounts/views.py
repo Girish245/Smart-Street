@@ -3,6 +3,9 @@ from .models import Account
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
+from orders.models import Order, OrderProduct
+
 
 
 def userLogin(request):
@@ -24,7 +27,11 @@ def userLogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "User logged in successfully!")
-            return redirect('index')
+            
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('index')
         else:
             messages.error(request, "Invalid login credentials")
             print('Invalid login credentials')
@@ -52,3 +59,11 @@ def userRegister(request):
 
     context = {'form': form}
     return render(request, 'accounts/user-register.html', context)
+
+@login_required(login_url='login')
+def profile(request):
+    profile = request.user
+    order = Order.objects.filter(user=profile).order_by('-created_at')
+
+    context = {'profile': profile, 'order': order}
+    return render(request, 'accounts/profile.html', context)

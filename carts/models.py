@@ -18,3 +18,4 @@ class CartItem(models.Model):
 
     def __str__(self):
         return str(self.product.product_name)
+

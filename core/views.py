@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 from django.db.models import Q
+from django.core.paginator import Paginator
+
 
 def index(request):
     products = Product.objects.all()
@@ -17,7 +19,10 @@ def store(request, category_slug=None):
         products = Product.objects.filter(category=categories)
     else:
         products = Product.objects.all()
-        
+    paginator = Paginator(products, 4)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+
     context = {'products': products}
     return render(request, 'core/store.html', context)
 

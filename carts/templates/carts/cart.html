@@ -1,133 +1,109 @@
 {% extends 'main.html' %}
 {% block content %}
 
-
-<section class="h-100 gradient-custom">
-    <div class="container py-5">
-
-      <div class="row d-flex justify-content-center my-4">
-        <div class="col-md-8">
-          {% if cart_item %}
-          
-          <div class="card mb-4">
-            {% for item in cart_item %}
-            <div class="card-header py-3">
-              <h5 class="mb-0">Cart - {{item.quantity}} items</h5>
-            </div>       
-            
-            <div class="card-body">
-              <!-- Single item -->
-              <div class="row">
-                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                  <!-- Image -->
-                  <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                    <a href="#">
-                    <img src="{{item.product.product_image.url}}"
-                      class="w-100" /> </a>
-                    <a href="#">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                    </a>
-                  </div>
-                  <!-- Image -->
-                </div>
-  
-                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                  <!-- Data -->
-                  <p><strong><a href="#" class="link-dark"></a></strong></p>
-
-
-                  <!-- Data -->
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                  <!-- Quantity -->
-                  <div class="d-flex mb-4" style="max-width: 300px">
+<section class="h-100 h-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      {% if cart_item %}
+      <div class="col-12">
+        
+        <div class="card card-registration card-registration-2" style="border-radius: 15px; border-color: #009970;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
                     
-                    <div class="input-group-prepend">
+                    <h4 class="fw-bold mb-0 text-dark">My Cart</h4>
+                    <h6 class="mb-0 text-muted">{{cart_count}} item{{cart_count|pluralize:"s"}}</h6>
+                  </div>
+                  <hr class="my-4">
+
+                  {% for item in cart_item %}
+                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <a href="{% url 'product-details' item.product.id %}">
+                      <img
+                        src="{{item.product.product_image.url}}"
+                        class="img-fluid rounded-3" alt="">
+                      </a>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <h6 class="text-black mb-0"><a href="{% url 'product-details' item.product.id %}">{{item.product.product_name}}</a></h6>
+                      <h6 class="text-muted">{{item.product.category}}</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                      <div class="input-group-prepend mx-1">
                         <a href="{% url 'remove-cart-item' item.product.id %}" class="btn btn-light" type="button" id="button-plus"> - </a>
                         </div>
 
-                    <div class="form-outline">
-                      <input id="form1" min="0" name="quantity" value="{{item.quantity}}" type="text" class="form-control" readonly/>
-                      <label class="form-label" for="form1">Quantity</label>
-                    </div>
-
-                    <div class="input-group-append">
-
-                        <a href="{% url 'add-to-cart' item.product.id %}" class="btn btn-light" type="button" id="button-minus"> + </a>
-            
+                        <div class="form-outline">
+                          <input id="form1" min="0" name="quantity" value="{{item.quantity}}" type="text" class="form-control" readonly/>
+                          <label class="form-label" for="form1">Quantity</label>
                         </div>
 
+                        <div class="input-group-append mx-1">
+                          <a href="{% url 'add-to-cart' item.product.id %}" class="btn btn-light" type="button" id="button-minus"> + </a>
+                          </div>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <label for="priceeach">Price each</label>
+                      <h6 class="mb-3">₹{{item.product.product_price}}</h6>
+                      <label for="subtotal"><strong>Sub total</strong></label>
+                      <h6 class="mb-0">₹{{item.sub_total}}</h6>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="{% url 'remove-cart' item.product.id %}" class="text-muted"><small style="color: red;">X</small></a>
+                    </div>
                   </div>
-                  <!-- Quantity -->
-  
-                  <!-- Price -->
-                  <p class="text-start text-md-center">
-                    <p>Price each: ₹{{item.product.product_price}}</p>
-                  </p>
+                  <hr class="my-4">
+                  {% endfor %}
 
-                  <p class="text-start text-md-center">
-                    <strong>Sub total: ₹{{item.sub_total}}</strong>
-                  </p>
-                  <!-- Price -->
 
-                  <a href="{% url 'remove-cart' item.product.id %}" class="btn btn-danger" type="button" >Remove</a>
+                  <div class="pt-5">
+                    <h6 class="mb-0"><a href="{% url 'store' %}" class="btn btn-outline-success">Back to shop</a></h6>
+                  </div>
                 </div>
               </div>
-              <!-- Single item -->
-  
-              <hr class="my-4" />
-  
- 
-            </div>
-            {% endfor %}
+              <div class="col-lg-4 bg-grey">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                  <hr class="my-4">
 
-          </div>
-
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-header py-3">
-              <h5 class="mb-0">Summary</h5>
-            </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                  Total
-                  <span>{{total}}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                  Tax(2%)
-                  <span>{{tax}}</span>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                  <div>
-                    <strong>Total amount</strong>
+                  <div class="d-flex justify-content-between mb-4">
+                    <h6>Total</h6>
+                    <h5><span>{{total}}</span></h5>
                   </div>
-                  <span><strong>₹{{gross}}</strong></span>
-                </li>
-              </ul>
-  
-              <a href="#" class="btn btn-primary btn-lg btn-block">
-                Go to checkout
-              </a>
+
+                  <div class="d-flex justify-content-between mb-4">
+                    <h6>Tax(2%)</h6>
+                    <h5><span>{{tax}}</span></h5>
+                  </div>
+                  <hr class="my-4">
+
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">Total price</h5>
+                    <h5><strong>₹{{gross_total}}</strong></h5>
+                  </div>
+
+                  <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg btn-block">
+                    Go to checkout
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {% else %}
-
-        <div class="text-center">
+      </div>
+      {% else %}
+      <div class="text-center">
         <h4>No item found in cart</h4>
         <a href="{% url 'store' %}" class="btn btn-outline-primary">Continue Shopping</a>
       </div>
-        {% endif %}
-      </div>
-
+      {% endif %}
     </div>
-  </section>
+  </div>
+</section>
 
 
 {% endblock %}

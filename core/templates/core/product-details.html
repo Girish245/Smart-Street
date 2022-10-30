@@ -43,24 +43,26 @@
               <li><strong>Category</strong>: {{product.category.category_name}}</li>
               <li><strong>Price</strong>: ₹{{product.product_price}}</li>
               <li><strong>Product Available</strong>: {{product.available_product_count}}</li>
-
+              <li class="mt-5">
+                {% if product.available_product_count <= 0 %}
+                <button class="btn btn-warning disabled">Out Of Stock</button>
+      
+                {% else %}
+                <a href="{% url 'add-to-cart' product.id %}" class="btn btn-success">Add to Cart</a>
+      
+                {% endif %}
+              </li>
         
             </ul>
           </div>
-
+          
           <div class="portfolio-description">
             <h2>More Details</h2>
             <p>
               {{product.description|linebreaks}}
             </p>
           </div>
-          {% if product.available_product_count <= 0 %}
-          <button class="btn btn-warning disabled">Out Of Stock</button>
-
-          {% else %}
-          <a href="{% url 'add-to-cart' product.id %}" class="btn btn-success">Add to Cart</a>
-
-          {% endif %}
+         
  
         </div>
       

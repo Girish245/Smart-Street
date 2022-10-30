@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.get_category_url',
+                'carts.context_processors.cartCount',
             ],
         },
     },
@@ -133,7 +135,19 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+
+#SMTP CONFIGURATION
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'girishkumarg190@gmail.com'
+EMAIL_HOST_PASSWORD = 'rlcwvtieuwfdxkyk'
+EMAIL_USE_TLS = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+KEY_ID = 'rzp_test_sMrzhAAHKwUnov'
+KEY_SECRET = 'hcVLsQvbtsSjibaF6t6wuipE'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
