@@ -55,7 +55,11 @@ def userRegister(request):
             user = form.save()
             login(request, user)
             messages.success(request, "User registered successfully and logged into account!")
-            return redirect('index')
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('index')
+   
 
     context = {'form': form}
     return render(request, 'accounts/user-register.html', context)

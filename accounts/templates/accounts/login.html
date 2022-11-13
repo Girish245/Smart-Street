@@ -60,7 +60,7 @@
                   <!-- Register buttons -->
                   <div class="text-center">
                     <p>
-                      Don't have an account? <a href="{% url 'user-register' %}">Register</a>
+                      Don't have an account? <a href="{% url 'user-register' %}?next={{request.GET.next}}">Register</a>
                     </p>
                   </div>
                 </form>
