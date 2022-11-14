@@ -67,7 +67,7 @@ def userRegister(request):
 @login_required(login_url='login')
 def profile(request):
     profile = request.user
-    order = Order.objects.filter(user=profile).order_by('-created_at')
+    order = Order.objects.filter(user=profile, status='Completed').order_by('-created_at')
 
     context = {'profile': profile, 'order': order}
     return render(request, 'accounts/profile.html', context)
