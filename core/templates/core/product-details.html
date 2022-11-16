@@ -22,14 +22,21 @@
 
         <div class="col-lg-8">
           <div class="portfolio-details-slider swiper">
-            <div class="swiper-wrapper align-items-center">
 
-              <div class="swiper-slide" style="width: 70%">
+            <div class="swiper-wrapper align-items-center"> 
+              <ul class="thumb">
+                {% for image in product_gallery %}
+                <li>
+                  <a href="{{image.images.url}}" target="mainImage"><img src="{{image.images.url}}" alt="Product Image"></a>     
+                </li>
+                {% endfor %}
+              </ul>
+              <div class="swiper-slide mainImage" style="width: 70%">
                 <img src="{{product.product_image.url}}" alt="">
               </div>
-            
+
             </div>
-            <div class="swiper-pagination"></div>
+
           </div>
         </div>
 

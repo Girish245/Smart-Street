@@ -32,3 +32,17 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+    
+
+class ProductImageGallery(models.Model):
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='product_images/')
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+
+
+    def __str__(self):
+        return self.product.product_name
+
+    class Meta:
+        verbose_name = 'product image gallery'
+        verbose_name_plural = 'product image gallery'

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
+from .models import Category, Product, ProductImageGallery
 from django.db.models import Q
 from django.core.paginator import Paginator
 
@@ -43,5 +43,6 @@ def searchProduct(request):
 
 def productDetails(request, pk):
     product = Product.objects.get(id=pk)
-    context = {'product': product}
+    product_gallery = ProductImageGallery.objects.filter(product=product)
+    context = {'product': product, 'product_gallery': product_gallery}
     return render(request, 'core/product-details.html', context)
