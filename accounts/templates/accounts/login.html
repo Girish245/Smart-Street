@@ -53,6 +53,9 @@
                     <input type="hidden" name="next" value="{{request.GET.next}}">
                   {% endif %}
 
+                  <p class="text-center">
+                  <a href="{% url 'reset_password' %}">Forgot password? </a>
+                  </p>
                   <button type="submit" class="btn btn-primary btn-block mb-4">
                     Login
                   </button>
